@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<title>W3.CSS</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script type="text/javascript">
+function DrawHive() {
+    //var GRID_HEIGHT = 60.55;//86.5;//17.3;
+    var GRID_WIDTH = Number(document.getElementById("cell_len").value);//100;//20;
+    var GRID_HEIGHT = GRID_WIDTH*1.73/2;
+    var CELL_BORDER = GRID_WIDTH;
+    var cv = document.getElementById('hive');
+    cv.width=cv.clientWidth;
+    cv.height=cv.clientHeight;
+    width  = Math.ceil(cv.clientWidth/GRID_WIDTH);
+    height = Math.ceil(cv.clientHeight/GRID_HEIGHT);
+    var cv = document.getElementById('hive');
+    var cxt = cv.getContext("2d");
+    for (var i = 0; i < width; i++) {
+      for (var j = 0; j < height; j++) {
+        x = GRID_WIDTH  * i*3/2;
+        y = GRID_HEIGHT * j;
+        if ((i+j)%2==0){
+          cxt.strokeStyle="#000";
+          cxt.beginPath();
+          cxt.moveTo(x,y+GRID_HEIGHT);
+          cxt.lineTo(x+CELL_BORDER/2,y+GRID_HEIGHT);
+          cxt.lineTo(x+CELL_BORDER,y);
+          cxt.stroke();
+          cxt.closePath();
+        }else{
+          cxt.beginPath();
+          cxt.moveTo(x+CELL_BORDER/2,y);
+          cxt.lineTo(x+CELL_BORDER,y+GRID_HEIGHT);
+          cxt.lineTo(x+CELL_BORDER*3/2,y+GRID_HEIGHT);
+          cxt.stroke();
+          cxt.closePath();
+        }
+      };
+    };
+  }
+  </script>
+<body>
+<p>
+<input type="text" name="pin" value="30" id="cell_len"/>
+<input type="button" value="Generate" onclick="DrawHive()" />
+</p>
+<canvas id="hive" width="1000" height="1000" style=""></canvas>
+</body>
+</html>
